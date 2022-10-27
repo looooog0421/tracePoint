@@ -1,0 +1,61 @@
+# By yangbo 2021.04.20
+import numpy as np
+import matplotlib.pyplot as plt  # 画图的
+import math  # 计算幂函数的
+from numpy.linalg import inv  # 求矩阵的逆的 inv
+
+
+# 计算范德蒙行列式
+def Vandermonder(x):
+    temp = []
+    for i in x:
+        for j in range(len(x)):
+            temp.append(math.pow(i, j))
+    return temp
+
+
+# 多项式计算
+def Pn(x):
+    pn = 0.0
+    i = 0
+    for j in range(len(a)):
+        pn += a[i] * math.pow(x, j)
+        i += 1
+    return pn
+
+
+# matplotlib画图中中文显示会有问题，需要这两行设置默认字体
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 散点数据
+data = [[7, 18], [2, 3], [0, 6], [1, 9], [4, 13]]  # 坐标值
+# data =[[1,1],[2,2]]
+x, y = [], []
+
+# 分离出x,y
+for i in data:
+    x.append(i[0])
+    y.append(i[1])
+
+x = np.array(x)
+y = np.array(y)
+
+# AX=B
+B = y
+A = np.array(Vandermonder(x)).reshape(len(x), len(x))
+
+# 多项式的参数 a0  a1  a2  ...
+X = np.dot(inv(A), B)
+a = X
+x1 = np.linspace(-1, 9, 100)  # numpy.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)
+y1 = []
+for k in x1:
+    y1.append(Pn(k))
+
+plt.plot(x1, y1)
+plt.scatter(x, y, marker='o', alpha=0.4, color="red", label='数据点')
+plt.legend()  # label='数据点'  图中显示
+plt.title('多项式插值法【Pyhon】')  # 图的标题
+plt.savefig(r'C:\Users\97942\Desktop\hw1_data\多项式插值.png', dpi=600)
+plt.show()  # plt.savefig()放在之前
