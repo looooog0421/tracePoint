@@ -1,3 +1,4 @@
+from curses import raw
 import numpy as np
 import cv2 as cv
 import math  # 计算幂函数的
@@ -13,13 +14,13 @@ class PolyPoints:
         self.d = 0
         self.t = np.array([0, 1, 2])
 
-    def delNegOne(self,raw_data):
+    def delNegOne(self,raw_data):    #用于去除数据中的-1,也可手动删除
         rowIndex = np.where((raw_data == (-1, -1)).all(axis=1))
         data = np.delete(raw_data,rowIndex,axis=0)
 
         return data
 
-    def delRepeatPoint(self, raw_data):
+    def delRepeatPoint(self, raw_data):  #删除重复点
 
         raw_data = self.delNegOne(raw_data)
 
@@ -37,7 +38,7 @@ class PolyPoints:
         unique_data = raw_data[:self.slow]
         return unique_data
 
-    def poly(self, unique_data1):
+    def poly(self, unique_data1):  #多项式插值
 
         unique_data = self.delRepeatPoint(unique_data1)
 
@@ -107,7 +108,7 @@ class PolyPoints:
             i += 1
         return pn
 
-    def SED(self, data):
+    def SED(self, data): #做轨迹首尾相连的直线,直线上点的数量等于轨迹点数
         start_point = data[0, :]
         end_point = data[-1, :]
         line_point = []
@@ -145,6 +146,17 @@ class PolyPoints:
     #
     #     final_line = self.SED(final_data)
     #     np.loadtxt()
+    def lesspoint(self,raw_data):
+        less_data = []
+        self.fast = 0
+        while self.fast < raw_data.shape[0]:
+            if self.fast%2 != 0:
+                less_data.append(raw_data[self.fast])
+            self.fast += 1
+        less_data = np.array(less_data).reshape(-1, 2)
+        return less_data
+
+
 
 if __name__ == '__main__':
     data1 = np.loadtxt("bihua_data/spiral930points.txt").reshape(-1, 2)

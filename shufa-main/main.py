@@ -13,9 +13,11 @@ if __name__ == '__main__':
     spiral_data1 = np.loadtxt(os.path.join(file, 'morecircle.txt')).reshape(-1, 2)
     # spiral_data1 = PolyPoints1.delRepeatPoint(spiral_data1)
     poly_spiral_data1 = PolyPoints1.poly(spiral_data1)
+    less_data = PolyPoints1.lesspoint(poly_spiral_data1)
     print(poly_spiral_data1.shape)
+    print(less_data.shape)
     
-    morecircle_line = PolyPoints1.SED(poly_spiral_data1)
+    morecircle_line = PolyPoints1.SED(less_data)
 
     #这段代码是用于生成轨迹首尾相接直线的数据点集,直线上的点数等于轨迹点数
     img = np.zeros((400, 400), np.uint8)
@@ -58,7 +60,7 @@ if __name__ == '__main__':
     # cv.imshow("img", img)
     # cv.waitKey(0)
 
-    np.savetxt(os.path.join(file, 'morecircle_line.txt'), spiral_data1)
-    np.savetxt(os.path.join(file, 'morecircle_trace.txt'), morecircle_line)
+    np.savetxt(os.path.join(file, 'morecircle_line.txt'), morecircle_line)
+    np.savetxt(os.path.join(file, 'morecircle_trace.txt'), less_data)
 
 
