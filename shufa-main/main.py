@@ -8,9 +8,9 @@ import os
 
 if __name__ == '__main__':
     fileFolder = os.path.abspath(os.path.dirname(__file__))
-    file = os.path.join(fileFolder, 'bihua_data')
+    file = os.path.join(fileFolder, 'bihua_data/')
     PolyPoints1 = poly.PolyPoints()
-    spiral_data1 = np.loadtxt(os.path.join(file, 'morecircle.txt')).reshape(-1, 2)
+    spiral_data1 = np.loadtxt(os.path.join(file, 'alpha.txt')).reshape(-1, 2)
     # spiral_data1 = PolyPoints1.delRepeatPoint(spiral_data1)
     poly_spiral_data1 = PolyPoints1.poly(spiral_data1)
     print(poly_spiral_data1.shape)
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     # cv.imshow("img", img)
     # cv.waitKey(0)
 
-    np.savetxt(os.path.join(file, 'morecircle_line.txt'), spiral_data1)
-    np.savetxt(os.path.join(file, 'morecircle_trace.txt'), morecircle_line)
+    np.savetxt(os.path.join(file, 'alpha_line.txt'), spiral_data1)
+    np.savetxt(os.path.join(file, 'alpha_trace.txt'), morecircle_line)
 
 

@@ -8,9 +8,9 @@ import sys
 class Pen:
     def __init__(self):
         fileFolder = os.path.abspath(os.path.dirname(__file__))
-        self.save_txt_dir = os.path.join(fileFolder, 'bihua_data')
+        self.save_txt_dir = os.path.join(fileFolder, 'bihua_data/')
         self.index=0
-        self.object_name = ["morecircle1"]
+        self.object_name = ["alpha"]
         self.object_type = ".txt"
         self.mode="w"
         self.width = 400
