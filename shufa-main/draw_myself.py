@@ -10,7 +10,7 @@ class Pen:
         fileFolder = os.path.abspath(os.path.dirname(__file__))
         self.save_txt_dir = os.path.join(fileFolder, 'bihua_data')
         self.index=0
-        self.object_name = ["morecircle1"]
+        self.object_name = ["spiral_more3"]
         self.object_type = ".txt"
         self.mode="w"
         self.width = 400
@@ -18,7 +18,7 @@ class Pen:
         self.channles = 1
         self.step=0
         self.flag=True
-        while(os.path.isfile(self.save_txt_dir+self.object_name[self.index]+self.object_type)):
+        while(os.path.isfile(os.path.join(self.save_txt_dir, (self.object_name[self.index]+self.object_type)))):
             print("[%s]字已存在，请删除后再修改"%self.object_name[self.index])
             self.index+=1
             # print(self.index)
@@ -26,7 +26,7 @@ class Pen:
                 self.flag=False
                 break
         if(self.flag):
-            self.f = open(self.save_txt_dir+self.object_name[self.index] + self.object_type, "w")
+            self.f = open(os.path.join(self.save_txt_dir, (self.object_name[self.index]+self.object_type)), "w")
             add_point = '{} {} '.format(-1, -1)
             self.f.write(add_point)
         else:
@@ -49,7 +49,7 @@ class Pen:
         for i in range(self.channles):
             img_init[:, :, i] = 255
     def next_write(self):
-        self.f = open(self.save_txt_dir+self.object_name[self.index] + self.object_type, "w")
+        self.f = open(os.path.join(self.save_txt_dir, (self.object_name[self.index]+self.object_type)), "w")
 
 
 pen_main=Pen()

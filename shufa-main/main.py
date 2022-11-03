@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from fileinput import filename
 import numpy as np
 import poly
 import cv2 as cv
@@ -10,14 +11,15 @@ if __name__ == '__main__':
     fileFolder = os.path.abspath(os.path.dirname(__file__))
     file = os.path.join(fileFolder, 'bihua_data')
     PolyPoints1 = poly.PolyPoints()
-    spiral_data1 = np.loadtxt(os.path.join(file, 'morecircle.txt')).reshape(-1, 2)
+    file_name = 'spiral_more'
+    spiral_data1 = np.loadtxt(os.path.join(file, '{}.txt'.format(file_name))).reshape(-1, 2)
     # spiral_data1 = PolyPoints1.delRepeatPoint(spiral_data1)
     poly_spiral_data1 = PolyPoints1.poly(spiral_data1)
-    less_data = PolyPoints1.lesspoint(poly_spiral_data1)
+    # poly_spiral_data1 = PolyPoints1.lesspoint(poly_spiral_data1)
     print(poly_spiral_data1.shape)
-    print(less_data.shape)
+    print(poly_spiral_data1.shape)
     
-    morecircle_line = PolyPoints1.SED(less_data)
+    morecircle_line = PolyPoints1.SED(poly_spiral_data1)
 
     #这段代码是用于生成轨迹首尾相接直线的数据点集,直线上的点数等于轨迹点数
     img = np.zeros((400, 400), np.uint8)
@@ -60,7 +62,7 @@ if __name__ == '__main__':
     # cv.imshow("img", img)
     # cv.waitKey(0)
 
-    np.savetxt(os.path.join(file, 'morecircle_line.txt'), morecircle_line)
-    np.savetxt(os.path.join(file, 'morecircle_trace.txt'), less_data)
+    np.savetxt(os.path.join(file, '{}_line.txt'.format(file_name)), morecircle_line)
+    np.savetxt(os.path.join(file, '{}_trace.txt'.format(file_name)), poly_spiral_data1)
 
 
